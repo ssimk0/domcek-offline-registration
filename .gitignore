@@ -103,3 +103,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+domcek/static/dist
+domcek/templates/index.html

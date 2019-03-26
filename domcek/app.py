@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_cors import CORS
 from domcek import registration
 from domcek.settings import ProdConfig
 
@@ -12,6 +13,7 @@ def create_app(config_object=ProdConfig):
     flask_app.url_map.strict_slashes = False
     flask_app.config.from_object(config_object)
     register_blueprints(flask_app)
+    CORS(flask_app, resources={r"/api/*": {"origins": '*'}})
     return flask_app
 
 
