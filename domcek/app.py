@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_cors import CORS
-from domcek import registration
+from domcek import api
 from domcek.settings import ProdConfig
 
 
@@ -20,17 +20,21 @@ def create_app(config_object=ProdConfig):
 def register_blueprints(flask_app):
     """Register Flask blueprints."""
 
-    flask_app.register_blueprint(registration.views.blueprint)
+    flask_app.register_blueprint(api.views.blueprint, url_prefix='/api')
 
 
 app = create_app()
 
 
+# Handler for vue app
+@app.route("/", methods=['GET'])
+def vue_app():
+    return render_template('index.html')
+
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('page_not_found.html'), 404
-
+      return render_template('index.html')
 
 @app.errorhandler(500)
-def page_not_found(error):
+def server_error(error):
     return render_template('error.html'), 500
