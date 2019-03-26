@@ -8,17 +8,17 @@ def create_app(config_object=ProdConfig):
     http://flask.pocoo.org/docs/patterns/appfactories/.
     :param config_object: The configuration object to use.
     """
-    app = Flask(__name__.split('.')[0])
-    app.url_map.strict_slashes = False
-    app.config.from_object(config_object)
-    register_blueprints(app)
-    return app
+    flask_app = Flask(__name__.split('.')[0])
+    flask_app.url_map.strict_slashes = False
+    flask_app.config.from_object(config_object)
+    register_blueprints(flask_app)
+    return flask_app
 
 
-def register_blueprints(app):
+def register_blueprints(flask_app):
     """Register Flask blueprints."""
 
-    app.register_blueprint(registration.views.blueprint)
+    flask_app.register_blueprint(registration.views.blueprint)
 
 
 app = create_app()
