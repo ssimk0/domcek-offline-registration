@@ -48,9 +48,9 @@ module.exports = {
     index: path.resolve(__dirname, '../../domcek/templates/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../domcek/static/dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsRoot: path.resolve(__dirname, '../../domcek/static/'),
+    assetsSubDirectory: 'assets',
+    assetsPublicPath: 'static/',
 
     /**
      * Source Maps
