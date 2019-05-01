@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_cors import CORS
-from domcek import api
+from domcek import sync
+from domcek import offline
 from domcek.settings import ProdConfig
 
 
@@ -13,14 +14,15 @@ def create_app(config_object=ProdConfig):
     flask_app.url_map.strict_slashes = False
     flask_app.config.from_object(config_object)
     register_blueprints(flask_app)
-    CORS(flask_app, resources={r"/api/*": {"origins": '*'}})
+    CORS(flask_app, resources={r"/sync/*": {"origins": '*'}})
     return flask_app
 
 
 def register_blueprints(flask_app):
     """Register Flask blueprints."""
 
-    flask_app.register_blueprint(api.views.blueprint, url_prefix='/api')
+    flask_app.register_blueprint(offline.views.blueprint, url_prefix='/registration')
+    flask_app.register_blueprint(sync.views.blueprint, url_prefix='/sync')
 
 
 app = create_app()
@@ -28,12 +30,14 @@ app = create_app()
 
 # Handler for vue app
 @app.route("/", methods=['GET'])
-def vue_app():
-    return render_template('index.html')
+def index():
+    return redirect('/registration')
+
 
 @app.errorhandler(404)
 def page_not_found(error):
-      return render_template('index.html')
+    return render_template('page_not_found.html')
+
 
 @app.errorhandler(500)
 def server_error(error):

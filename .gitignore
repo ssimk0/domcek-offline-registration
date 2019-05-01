@@ -105,5 +105,4 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-domcek/static/assets
-domcek/templates/index.html
+domcek/run_local.sh
