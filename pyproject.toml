@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "domcek registration"
+name = "domcek-registration"
 version = "0.1.0"
 description = ""
 authors = ["Sebastian Simko <contact@sebastiansimko.sk>"]
