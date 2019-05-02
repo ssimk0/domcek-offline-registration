@@ -21,6 +21,7 @@ jobs:
       - run:
           name: Run Pytest, report coverage
           command: |
-            poetry run pytest --cov-report html --cov-report term:skip-covered --cov=domcek domcek/tests
+            poetry run pytest --cov-report xml --cov-report term:skip-covered --cov=domcek domcek/tests
       - store_test_results:
-          path: htmlcov
+          path: coverage.xml
+      
