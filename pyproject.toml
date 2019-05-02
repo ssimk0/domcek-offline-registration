@@ -11,6 +11,7 @@ flask-CORS = "^3.0"
 Flask-Caching = "^1.7"
 requests = "^2.21"
 pytest = "^4.4"
+pytest-cov = "^2.6"
 
 [tool.poetry.dev-dependencies]
 
