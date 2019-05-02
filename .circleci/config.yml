@@ -1,0 +1,25 @@
+version: 2
+jobs: 
+  build: 
+    docker:
+      - image: circleci/python:3.6.4
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - restore_cache:
+          keys: 
+            - deps-{{ checksum "poetry.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            poetry install
+      - save_cache:
+          key: deps-{{ checksum "poetry.lock" }}
+          paths: 
+            - /home/circleci/.cache/pypoetry/virtualenvs
+      - run:
+          name: Run Pytest, report coverage
+          command: |
+            poetry run coverage run --omit="/home/circleci/.cache/pypoetry/virtualenvs" -m pytest
+            poetry run coveralls

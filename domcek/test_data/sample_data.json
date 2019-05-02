@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "John Smith",
+        "email": "john@example.com"
+    },
+    {
+        "id": 2,
+        "name": "Jane",
+        "email": "jane@example.com",
+        "registered": true,
+        "city": "Kosice"
+    }
+]

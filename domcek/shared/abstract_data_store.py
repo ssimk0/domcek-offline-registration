@@ -23,7 +23,7 @@ class DataStore:
     def filter(self, search_string=None):
         filtered_list = []
 
-        if search_string == '' or search_string is None:
+        if search_string == '' or search_string is None or self.data is None:
             return self.data
 
         filter_strings = search_string.split(' ')
@@ -41,7 +41,7 @@ class DataStore:
 
     def update_by_id(self, subject_id, data):
         for index, subject in enumerate(self.data):
-            if subject.id == subject_id:
+            if subject['id'] == subject_id:
                 self.data[index] = data
                 break
 
