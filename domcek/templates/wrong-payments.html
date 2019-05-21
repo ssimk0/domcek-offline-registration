@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}
+Nesparované platby
+{% endblock %}
+
+{% block payments_menu %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="row mt-5">
+                <form method="get" action="/registration/wrong-payments" class="col-4">
+                    <div class="form-group">
+                        <input placeholder="Vyhľadať" class="form-control" name="q">
+                    </div>
+                </form>
+            </div>
+            <table class="table table-striped table-hover table-sm mt-2 mb-5">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Variabilne čislo</th>
+                    <th>IBAN</th>
+                    <th>Suma</th>
+                    <th>Poznámka</th>
+                    <th>Dátum tranzakcie</th>
+                    <th>Akcie</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if payments != None and payments | count > 0%}
+                {% for payment in payments %}
+
+                <tr class="{{class}}">
+                    <td>{{ payment.payment_number }}</td>
+                    <td>{{ payment.iban }}</td>
+                    <td>{{ payment.amount }}</td>
+                    <td>{{ payment.payment_note }}</td>
+                    <td>{{ payment.transaction_date }}</td>
+                    <td><a href="#">Priradiť platbu</a></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="12" class="text-center">
+                        Žiadne dáta
+                    </td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

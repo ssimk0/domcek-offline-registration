@@ -1,3 +1,5 @@
+import time
+from datetime import date, datetime
 from flask import Flask, render_template, redirect
 from flask_cors import CORS
 from domcek import sync
@@ -42,3 +44,14 @@ def page_not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('error.html'), 500
+
+
+@app.template_filter('year_is_more')
+def year_is_more_filter(d, years):
+    now = datetime.now()
+    year = now.year - years
+
+    result = datetime.strptime(d, '%Y-%m-%d')
+    print(result.year < year)
+    return result.year < year
+

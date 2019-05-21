@@ -2,6 +2,9 @@
 {% block title %}
   Stiahnutie dat
 {% endblock %}
+
+{% block registration_menu %}active{% endblock %}
+
 {% block body %}
   <div class="container-fluid">
     <div class="row justify-content-center" >
@@ -25,7 +28,6 @@
                     <th>Potrebuje doplatiť</th>
                     <th>Skupinka</th>
                     <th>Je Prihlásený</th>
-                    <th>Je Zaregistrovaný</th>
                     <th>Akcie</th>
                 </tr>
               </thead>
@@ -40,6 +42,10 @@
 
                             {% if participant.was_on_event %}
                                 {% set class = 'registered' %}
+                            {% endif %}
+
+                            {% if participant.birth_date | year_is_more(years=18) %}
+                                {% set class = 'need_sing_from_parents' %}
                             {% endif %}
                             <tr class="{{class}}">
                                 <td>{{ participant.first_name }}</td>
@@ -66,14 +72,7 @@
                                         Nie
                                     {% endif %}
                                 </td>
-                                <td>
-                                     {% if participant.was_on_event %}
-                                        Ano
-                                    {% else %}
-                                        Nie
-                                    {% endif %}
-                                </td>
-                                <td><a href="#">Zaregistrovať</a></td>
+                                <td><a href="/registration/participant/{{participant.user_id}}">Zaregistrovať</a></td>
                             </tr>
                         {% endfor %}
                     {% else %}
@@ -89,7 +88,11 @@
                             <form method="post" action="/sync/download">
                               <div class="text-center pb-2">
                                   <p>Nemáš stiahnute data pre registraciu</p>
-                                <button class="btn btn-primary" type="submit">Stiahnuť Data</button>
+                                  <div class="form-group">
+                                      <label for="token">Token</label>
+                                      <input type="text" required class="token" id="token" name="token">
+                                  </div>
+                                  <button class="btn btn-primary" type="submit">Stiahnuť Data</button>
                               </div>
                             </form>
                         </td>

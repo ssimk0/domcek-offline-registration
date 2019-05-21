@@ -1,11 +1,15 @@
 .subscribed {
-    background: #F7DC6F;
+    background: #F7DC6F !important;
 }
 
 .registered {
-    background: #DAF7A6;
+    background: #DAF7A6 !important;
+}
+
+.need_sing_from_parents {
+    background: rgba(255,101,0,.8) !important;
 }
 
 table thead {
-        background: #F7DC6F;
+    background: #F7DC6F;
 }

@@ -39,6 +39,11 @@ class DataStore:
 
         return filtered_list
 
+    def find_by(self, user_id=None, field=None):
+        for subject in self.data:
+            if subject[field] is user_id:
+                return subject
+
     def update_by_id(self, subject_id, data):
         for index, subject in enumerate(self.data):
             if subject['id'] == subject_id:

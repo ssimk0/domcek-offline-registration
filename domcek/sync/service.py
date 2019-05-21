@@ -4,8 +4,8 @@ import json
 
 class SyncService(Service):
     # Login user and call rest-sync endpoint to download users and save it to file as json
-    def download(self):
-        response = self.make_request('GET', '/registration/events/103/participants/all-details/sync')
+    def download(self, token):
+        response = self.make_request('GET', '/registration/events/participants/all-details/sync?token=' + token)
         if response.status_code == 200:
             response = json.loads(response.content)
 

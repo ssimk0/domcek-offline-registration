@@ -5,7 +5,7 @@ from domcek.shared.wrong_payments_data_store import wrong_payments
 
 
 class Service:
-    api_root = 'http://localhost:8090/api'
+    api_root = 'https://api.domcek.org/api'
     participant_store = None
     wrong_payments_store = None
 

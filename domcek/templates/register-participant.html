@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}
+Nesparované platby
+{% endblock %}
+
+{% block registration_menu %}active{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <h5 class="card-title">Registrovať</h5>
+            <div class="row">
+                <div class="col-6">
+                    <strong>Meno: </strong>{{ participant.first_name }}
+                </div>
+                <div class="col-6">
+                    <strong>Priezvisko: </strong>{{ participant.last_name }}
+                </div>
+                <div class="col-6">
+                    <strong>Email: </strong>{{ participant.email }}
+                </div>
+                <div class="col-6">
+                    <strong>City: </strong>{{ participant.city }}
+                </div>
+                <div class="col-6">
+                    <strong>Variabilne čislo: </strong>{{ participant.payment_number }}
+                </div>
+                <div class="col-6">
+                    <strong>Dátum narodenia: </strong>{{ participant.birth_date }}
+                </div>
+                <div class="col-6">
+                    <strong>Zaplatil: </strong>{{ participant.paid }}
+                </div>
+                <div class="col-6">
+                    <strong>Doplatit: </strong>{{ participant.need_pay - participant.paid }}
+                </div>
+                {% if participant.group_name %}
+                <div class="col-6">
+                    <strong>Skupinka: </strong>{{ participant.group_name }}
+                </div>
+                {% endif %}
+                <div class="col mt-2">
+                    <strong>Poznámka: </strong>
+                    <div class="col">
+                    {{ participant.note | safe }}
+                    </div>
+                </div>
+            </div>
+            <p class="card-text">
+            <form method="POST" action="/registration/participant/{{participant.user_id}}">
+                <div class="form-group">
+                    <label>Suma</label>
+                    <input type="number" min="0" name="amount" class="form-control" value="{{participant.on_registration}}">
+                </div>
+                <button type="submit" class="btn btn-primary">Registrovať</button>
+            </form>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
