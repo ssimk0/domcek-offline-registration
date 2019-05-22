@@ -16,5 +16,5 @@ class SyncService(Service):
 
     # Login user and call rest-sync endpoint to sync changes to server from your local copy of database
     # in case of error send email with changes to admin
-    def upload(self):
+    def upload(self, token):
         pass

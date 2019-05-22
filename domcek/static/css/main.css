@@ -13,3 +13,7 @@
 table thead {
     background: #F7DC6F;
 }
+
+.success {
+    font-size: 120px
+}

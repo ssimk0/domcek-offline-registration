@@ -1,5 +1,4 @@
-import time
-from datetime import date, datetime
+from datetime import datetime
 from flask import Flask, render_template, redirect
 from flask_cors import CORS
 from domcek import sync
@@ -52,6 +51,5 @@ def year_is_more_filter(d, years):
     year = now.year - years
 
     result = datetime.strptime(d, '%Y-%m-%d')
-    print(result.year < year)
     return result.year < year
 

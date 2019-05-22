@@ -18,6 +18,7 @@ def detail(user_id):
         amount = request.form.get('amount', None)
         participant = service.get_participant_by_id(user_id)
         participant['on_registration'] = int(amount)
+        participant['was_on_event'] = 1
         service.save()
         return redirect('/registration')
     else:
