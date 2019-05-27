@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}
+Nesparované platby
+{% endblock %}
+
+{% block registration_menu %}active{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <h5 class="card-title">Sparovať platbu</h5>
+            <div class="row">
+                <div class="col-6">
+                    <strong>Suma: </strong>{{ payment.amount }}
+                </div>
+                <div class="col-6">
+                    <strong>Iban: </strong>{{ payment.iban }}
+                </div>
+                <div class="col-6">
+                    <strong>Variabilne čislo: </strong>{{ payment.payment_number }}
+                </div>
+                <div class="col-12">
+                    <strong>Poznamka: </strong>{{ payment.note | safe }}
+                </div>
+            </div>
+            <p class="card-text">
+            <form method="POST" action="/registration/wrong-payments/{{ payment.id }}">
+                <div class="form-group">
+                    <label>Email použivateľa</label>
+                    <input type="email" min="0" name="email" class="form-control" value="{{ payment.email }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Sparovať</button>
+            </form>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

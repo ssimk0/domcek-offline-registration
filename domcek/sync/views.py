@@ -20,9 +20,13 @@ def download():
 def upload():
     if request.method == 'POST':
         token = request.form.get('token', None)
-        print(token)
-        service.upload(token)
-        return redirect('/success')
+        data = {
+            'participants': service.participant_store.data,
+            'wrong-payments': service.wrong_payments_store.data
+        }
+
+        service.upload(token, data)
+        return redirect('/sync/success')
     else:
         return render_template('upload.html')
 

@@ -5,7 +5,7 @@ import json
 class SyncService(Service):
     # Login user and call rest-sync endpoint to download users and save it to file as json
     def download(self, token):
-        response = self.make_request('GET', '/registration/events/participants/all-details/sync?token=' + token)
+        response = self.make_request('GET', '/registration/events/participants/all-details/sync', params={'token': token})
         if response.status_code == 200:
             response = json.loads(response.content)
 
@@ -16,5 +16,8 @@ class SyncService(Service):
 
     # Login user and call rest-sync endpoint to sync changes to server from your local copy of database
     # in case of error send email with changes to admin
-    def upload(self, token):
-        pass
+    def upload(self, token, data):
+        response = self.make_request('PUT', '/registration/events/participants/sync', data=data, params={'token': token})
+        if response.status_code != 200:
+            raise ConnectionError('Problem with connection to api server')
+

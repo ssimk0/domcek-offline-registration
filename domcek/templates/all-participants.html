@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 {% block title %}
-  Stiahnutie dat
+  Učastníci
 {% endblock %}
 
-{% block registration_menu %}active{% endblock %}
+{% block participants_menu %}active{% endblock %}
 
 {% block body %}
   <div class="container-fluid">
     <div class="row justify-content-center" >
       <div class="col-12">
           <div class="row mt-5">
-              <form method="get" action="/registration" class="col-4">
+              <form method="get" action="/registration/participants" class="col-4">
                   <div class="form-group">
                       <input placeholder="Vyhľadať" class="form-control" name="q" value="{{filter if filter else ''}}">
                   </div>
@@ -22,17 +22,9 @@
               </thead>
               <tbody>
                 {% if participants != None %}
-                    {% if participants |count > 0 and filter != None and filter != '' %}
-                        {% for participant in participants %}
-                            {% include "components/participants-fields.html" %}
-                        {% endfor %}
-                    {% else %}
-                        <tr>
-                            <td colspan="12" class="text-center">
-                                Použi alebo zmeň filter na vyhľadanie konkretneho učasnika
-                            </td>
-                        </tr>
-                    {% endif %}
+                    {% for participant in participants %}
+                        {% include "components/participants-fields.html" %}
+                    {% endfor %}
                 {% else %}
                     <tr>
                         <td colspan="12">

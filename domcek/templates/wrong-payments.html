@@ -30,14 +30,16 @@ Nesparované platby
                 <tbody>
                 {% if payments != None and payments | count > 0%}
                 {% for payment in payments %}
-
+                {% if payment.user_id %}
+                    {% set class = 'registered' %}
+                {% endif %}
                 <tr class="{{class}}">
                     <td>{{ payment.payment_number }}</td>
                     <td>{{ payment.iban }}</td>
                     <td>{{ payment.amount }}</td>
                     <td>{{ payment.payment_note }}</td>
                     <td>{{ payment.transaction_date }}</td>
-                    <td><a href="#">Priradiť platbu</a></td>
+                    <td><a href="/registration/wrong-payments/{{ payment.id }}">Priradiť platbu</a></td>
                 </tr>
                 {% endfor %}
                 {% else %}

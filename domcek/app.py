@@ -51,5 +51,5 @@ def year_is_more_filter(d, years):
     year = now.year - years
 
     result = datetime.strptime(d, '%Y-%m-%d')
-    return result.year < year
+    return result.year > year
 

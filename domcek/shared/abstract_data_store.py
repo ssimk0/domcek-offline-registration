@@ -20,7 +20,7 @@ class DataStore:
 
         self.data = data_to_store
 
-    def filter(self, search_string=None):
+    def filter(self, only_participants, search_string=None):
         filtered_list = []
 
         if search_string == '' or search_string is None or self.data is None:
@@ -30,18 +30,25 @@ class DataStore:
 
         for subject in self.data:
             matched = False
+            if only_participants:
+                if subject.get('subscribed', 0):
+                    matched = True
             for field in self.searchable_fields:
                 if not matched:
                     for text in filter_strings:
                         if text.lower() in str(subject.get(field, '')).lower():
-                            filtered_list.append(subject)
                             matched = True
+                        else:
+                            matched = False
+            if matched:
+                filtered_list.append(subject)
 
         return filtered_list
 
-    def find_by(self, user_id=None, field=None):
+    def find_by(self, value=None, field=None):
         for subject in self.data:
-            if subject[field] is user_id:
+            item = subject.get(field, False)
+            if item and item == value:
                 return subject
 
     def update_by_id(self, subject_id, data):
@@ -51,3 +58,6 @@ class DataStore:
                 break
 
         self.store()
+
+    def __str__(self):
+        return json.dumps(self.data)

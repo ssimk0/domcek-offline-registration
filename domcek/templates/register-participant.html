@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block title %}
-Nesparované platby
+Registrovať učastnika
 {% endblock %}
 
 {% block registration_menu %}active{% endblock %}
@@ -18,7 +18,7 @@ Nesparované platby
                     <strong>Priezvisko: </strong>{{ participant.last_name }}
                 </div>
                 <div class="col-6">
-                    <strong>Email: </strong>{{ participant.email }}
+                    <strong>Telefon: </strong>{{ participant.phone }}
                 </div>
                 <div class="col-6">
                     <strong>City: </strong>{{ participant.city }}
@@ -29,12 +29,17 @@ Nesparované platby
                 <div class="col-6">
                     <strong>Dátum narodenia: </strong>{{ participant.birth_date }}
                 </div>
-                <div class="col-6">
-                    <strong>Zaplatil: </strong>{{ participant.paid }}
-                </div>
-                <div class="col-6">
-                    <strong>Doplatit: </strong>{{ participant.need_pay - participant.paid }}
-                </div>
+                {% if participant.need_pay %}
+                    <div class="col-6">
+                        <strong>Zaplatil: </strong>{{ participant.paid }}
+                    </div>
+                    <div class="col-6">
+                        <strong>Zaplatil pri registracii: </strong>{{ participant.on_registration }}
+                    </div>
+                    <div class="col-6">
+                        <strong>Doplatit: </strong>{{ participant.need_pay - participant.paid - participant.on_registration }}
+                    </div>
+                {% endif %}
                 {% if participant.group_name %}
                 <div class="col-6">
                     <strong>Skupinka: </strong>{{ participant.group_name }}

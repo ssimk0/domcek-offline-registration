@@ -11,7 +11,14 @@ def index():
     participants = service.get_participants(filter)
     return render_template('registration.html', participants=participants, filter=filter)
 
+# Participants list
+@blueprint.route("/participants", methods=['GET'])
+def participants():
+    filter = request.args.get('q', None)
+    participants = service.get_participants(filter)
+    return render_template('all-participants.html', participants=participants, filter=filter)
 
+# Participant detail and register action
 @blueprint.route('/participant/<int:user_id>', methods=['GET', 'POST'])
 def detail(user_id):
     if request.method == 'POST':
@@ -24,6 +31,22 @@ def detail(user_id):
     else:
         participant = service.get_participant_by_id(user_id)
         return render_template('register-participant.html', participant=participant)
+
+# Payment detail
+@blueprint.route('/wrong-payments/<int:payment_id>', methods=['GET', 'POST'])
+def detailWrongPayments(payment_id):
+    if request.method == 'POST':
+        email = request.form.get('email', None)
+        participant = service.get_participant_by_email(email)
+        payment = service.get_wrong_payments_by_payment_id(payment_id)
+        if participant:
+            payment['user_id'] = participant['user_id']
+            service.save_payments()
+        return redirect('/registration/wrong-payments')
+    else:
+        payment = service.get_wrong_payments_by_payment_id(payment_id)
+        return render_template('payment-detail.html', payment=payment)
+
 
 # This is endpoint responsible for show table with wrong payments
 @blueprint.route("/wrong-payments", methods=['GET'])
