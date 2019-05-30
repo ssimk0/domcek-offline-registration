@@ -16,7 +16,9 @@ def index():
 def participants():
     filter = request.args.get('q', None)
     participants = service.get_participants(filter)
-    return render_template('all-participants.html', participants=participants, filter=filter)
+    paid = service.get_paid_amount()
+    on_reg = service.get_on_reg_amount()
+    return render_template('all-participants.html', participants=participants, filter=filter, on_reg=on_reg, paid=paid)
 
 # Participant detail and register action
 @blueprint.route('/participant/<int:user_id>', methods=['GET', 'POST'])

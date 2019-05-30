@@ -5,6 +5,12 @@ class OfflineService(Service):
     # Show table of all registered users
     def get_participants(self, filter_string, only_participants=False):
         return self.participant_store.filter_participants(only_participants, filter_string)
+    
+    def get_paid_amount(self):
+        return self.participant_store.paid_amount()
+
+    def get_on_reg_amount(self):
+        return self.participant_store.on_reg_amount()
 
     # Wrong payment table
     def wrong_payments(self, filter_string):

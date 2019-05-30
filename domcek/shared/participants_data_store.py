@@ -31,4 +31,19 @@ class Participants(DataStore):
 
         return filtered_list
 
+    def paid_amount(self):
+        paid = 0
+        for subject in self.data:
+            amount = subject.get('paid', 0) if subject.get('paid', 0) else 0
+            paid = paid + amount
+        return paid
+
+    def on_reg_amount(self):
+        on_reg = 0
+        for subject in self.data:
+            amount = subject.get('on_registration', 0) if subject.get('on_registration', 0) else 0
+            on_reg = on_reg + amount
+        return on_reg
+
+
 participants = Participants()

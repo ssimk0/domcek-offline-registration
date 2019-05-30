@@ -15,6 +15,10 @@
                       <input placeholder="Vyhľadať" class="form-control" name="q" value="{{filter if filter else ''}}">
                   </div>
               </form>
+              <div class="col-6 mt-2">
+                  <span>Celkova suma na učet:</span> {{paid}}
+                  <span>Celkova suma na registrácii:</span> {{on_reg}}
+              </div>
           </div>
           <table class="table table-striped table-hover table-sm mt-2 mb-5">
               <thead class="thead-dark">
@@ -27,13 +31,13 @@
                     {% endfor %}
                 {% elif  participants != None and participants | count == 0 %}
                         <tr>
-                            <td colspan="12" class="text-center">
+                            <td colspan="13" class="text-center">
                                Žiadny použivateľ nebol nájdený
                             </td>
                         </tr>
                 {% else %}
                     <tr>
-                        <td colspan="12">
+                        <td colspan="13">
                             <form method="post" action="/sync/download">
                               <div class="text-center pb-2">
                                   <p>Nemáš stiahnute data pre registraciu</p>
