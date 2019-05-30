@@ -26,6 +26,8 @@ def detail(user_id):
         participant = service.get_participant_by_id(user_id)
         participant['on_registration'] = int(amount)
         participant['was_on_event'] = 1
+        participant['subscribed'] = 1
+        participant['transport_out'] = '11:00' if request.form.get('bus', participant['transport_out']) == 'on' else ''
         service.save()
         return redirect('/registration')
     else:

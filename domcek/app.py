@@ -1,3 +1,5 @@
+import sys
+from os import path
 from datetime import datetime
 from flask import Flask, render_template, redirect
 from flask_cors import CORS
@@ -11,7 +13,13 @@ def create_app(config_object=ProdConfig):
     http://flask.pocoo.org/docs/patterns/appfactories/.
     :param config_object: The configuration object to use.
     """
-    flask_app = Flask(__name__.split('.')[0])
+    if getattr(sys, 'frozen', False):
+        template_folder = path.join(sys._MEIPASS, 'templates')
+        static_folder = path.join(sys._MEIPASS, 'static')
+        flask_app = Flask(__name__.split('.')[0], template_folder=template_folder, static_folder=static_folder)
+    else:
+        flask_app = Flask(__name__.split('.')[0])
+
     flask_app.url_map.strict_slashes = False
     flask_app.config.from_object(config_object)
     register_blueprints(flask_app)
@@ -52,4 +60,9 @@ def year_is_more_filter(d, years):
 
     result = datetime.strptime(d, '%Y-%m-%d')
     return result.year > year
+
+
+@app.template_filter('bus')
+def year_is_more_filter(text):
+    return True if text and type(text) is str and ':' in text else False
 

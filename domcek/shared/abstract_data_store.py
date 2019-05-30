@@ -20,7 +20,7 @@ class DataStore:
 
         self.data = data_to_store
 
-    def filter(self, only_participants, search_string=None):
+    def filter(self, search_string=None):
         filtered_list = []
 
         if search_string == '' or search_string is None or self.data is None:
@@ -30,9 +30,6 @@ class DataStore:
 
         for subject in self.data:
             matched = False
-            if only_participants:
-                if subject.get('subscribed', 0):
-                    matched = True
             for field in self.searchable_fields:
                 if not matched:
                     for text in filter_strings:

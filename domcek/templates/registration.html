@@ -22,10 +22,16 @@
               </thead>
               <tbody>
                 {% if participants != None %}
-                    {% if participants |count > 0 and filter != None and filter != '' %}
+                    {% if participants | count > 0 and filter != None and filter != '' %}
                         {% for participant in participants %}
                             {% include "components/participants-fields.html" %}
                         {% endfor %}
+                    {% elif participants | count == 0 %}
+                        <tr>
+                            <td colspan="12" class="text-center">
+                               Žiadny použivateľ nebol nájdený
+                            </td>
+                        </tr>
                     {% else %}
                         <tr>
                             <td colspan="12" class="text-center">

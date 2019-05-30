@@ -4,7 +4,7 @@ from domcek.shared.abstract_service import Service
 class OfflineService(Service):
     # Show table of all registered users
     def get_participants(self, filter_string, only_participants=False):
-        return self.participant_store.filter(only_participants, filter_string)
+        return self.participant_store.filter_participants(only_participants, filter_string)
 
     # Wrong payment table
     def wrong_payments(self, filter_string):

@@ -37,7 +37,17 @@ Registrovať učastnika
                         <strong>Zaplatil pri registracii: </strong>{{ participant.on_registration }}
                     </div>
                     <div class="col-6">
-                        <strong>Doplatit: </strong>{{ participant.need_pay - participant.paid - participant.on_registration }}
+                        <strong>Doplatit: </strong>
+                        {% if participant.need_pay %}
+                            {% set amount = participant.need_pay %}
+                            {% if participant.paid %}
+                                {% set amount = amount - participant.paid %}
+                            {% endif %}
+                            {% if participant.on_registration %}
+                                {% set amount = amount - participant.on_registration %}
+                            {% endif %}
+                            {{ amount }}
+                        {% endif %}
                     </div>
                 {% endif %}
                 {% if participant.group_name %}
@@ -58,6 +68,10 @@ Registrovať učastnika
                     <label>Suma</label>
                     <input type="number" min="0" name="amount" class="form-control" value="{{participant.on_registration}}">
                 </div>
+               <div class="form-group">
+                  <label for="bus">Autobus v nedeľu</label>
+                  <input type="checkbox" required class="token" id="bus" name="bus" {{ 'checked' if participant.transport_out | bus else '' }} >
+              </div>
                 <button type="submit" class="btn btn-primary">Registrovať</button>
             </form>
             </p>
