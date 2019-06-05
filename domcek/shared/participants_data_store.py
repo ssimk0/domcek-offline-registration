@@ -4,8 +4,10 @@ from domcek.shared.abstract_data_store import DataStore
 
 locale.setlocale(locale.LC_ALL, "")
 
-def sortByLastName(a):
+
+def sort_by_last_name(a):
     return locale.strxfrm(a['last_name'])
+
 
 class Participants(DataStore):
     data_path = path.join(getcwd(), 'data/participants.json')
@@ -15,7 +17,7 @@ class Participants(DataStore):
         filtered_list = []
         filter_strings = []
 
-        self.data.sort(key=sortByLastName)
+        self.data.sort(key=sort_by_last_name)
 
         if (search_string == '' or search_string is None or self.data is None) and only_participants is False:
             return self.data
@@ -25,20 +27,24 @@ class Participants(DataStore):
 
         for subject in self.data:
             matched = False
-            if only_participants:
+            if only_participants and (search_string is None or search_string == ''):
                 if subject.get('subscribed', 0):
                     matched = True
             for field in self.searchable_fields:
                 if not matched:
                     for text in filter_strings:
                         if text.lower() in str(subject.get(field, '')).lower():
-                            matched = True
+                            if only_participants:
+                                if subject.get('subscribed', 0):
+                                    matched = True
+                            else:
+                                matched = True
                         else:
                             matched = False
             if matched:
                 filtered_list.append(subject)
 
-        filtered_list.sort(key=sortByLastName)
+        filtered_list.sort(key=sort_by_last_name)
         return filtered_list
 
     def paid_amount(self):

@@ -2,11 +2,16 @@
     {
         "id": 1,
         "name": "John",
-        "email": "john@example.com"
+        "last_name": "X",
+        "email": "john@example.com",
+        "subscribed": 1,
+        "paid": 10,
+        "on_registration": 0
     },
     {
         "id": 2,
         "name": "Jane",
+        "last_name": "Y",
         "email": "jane@example.com",
         "registered": true,
         "city": "Kosice"
