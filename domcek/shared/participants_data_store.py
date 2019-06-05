@@ -1,6 +1,11 @@
 from os import path, getcwd
+import locale
 from domcek.shared.abstract_data_store import DataStore
 
+locale.setlocale(locale.LC_ALL, "")
+
+def sortByLastName(a):
+    return locale.strxfrm(a['last_name'])
 
 class Participants(DataStore):
     data_path = path.join(getcwd(), 'data/participants.json')
@@ -8,11 +13,15 @@ class Participants(DataStore):
 
     def filter_participants(self, only_participants, search_string=None):
         filtered_list = []
+        filter_strings = []
 
-        if search_string == '' or search_string is None or self.data is None:
+        self.data.sort(key=sortByLastName)
+
+        if (search_string == '' or search_string is None or self.data is None) and only_participants is False:
             return self.data
 
-        filter_strings = search_string.split(' ')
+        if search_string is not None:
+            filter_strings = search_string.split(' ')
 
         for subject in self.data:
             matched = False
@@ -29,6 +38,7 @@ class Participants(DataStore):
             if matched:
                 filtered_list.append(subject)
 
+        filtered_list.sort(key=sortByLastName)
         return filtered_list
 
     def paid_amount(self):

@@ -12,7 +12,7 @@ Registrovať učastnika
             <h5 class="card-title">Registrovať</h5>
             <div class="row">
                 <div class="col-6">
-                    <strong>Meno: </strong>{{ participant.first_name }}
+                    <strong>Meno: </strong><span class="text-danger h4">{{ participant.first_name }}</span>
                 </div>
                 <div class="col-6">
                     <strong>Priezvisko: </strong>{{ participant.last_name }}
@@ -46,22 +46,33 @@ Registrovať učastnika
                             {% if participant.on_registration %}
                                 {% set amount = amount - participant.on_registration %}
                             {% endif %}
-                            {{ amount }}
+                            <span class="text-danger h4">{{ amount if amount > 0 else 0 }}</span>
                         {% endif %}
                     </div>
                 {% endif %}
                 {% if participant.group_name %}
                 <div class="col-6">
-                    <strong>Skupinka: </strong>{{ participant.group_name }}
+                    <strong>Skupinka: </strong><span class="text-danger h4">{{ participant.group_name }}</span>
+                </div>
+                {% endif %}
+                {% if participant.name %}
+                <div class="col-6">
+                    <strong>Služba: </strong><span class="text-danger h4">{{ participant.name }}</span>
                 </div>
                 {% endif %}
                 <div class="col mt-2">
                     <strong>Poznámka: </strong>
                     <div class="col">
-                    {{ participant.note | safe }}
+                    {{ participant.admin_note | safe }}
                     </div>
                 </div>
             </div>
+            {% if participant.birth_date | year_is_more(years=18) %}
+            <div class="text-center">
+                <span class="text-danger h4">Skontroluj potvrdenie od rodica</span>
+            </div>
+            {% endif %}
+
             <p class="card-text">
             <form method="POST" action="/registration/participant/{{participant.user_id}}">
                 <div class="form-group">
@@ -70,7 +81,7 @@ Registrovať učastnika
                 </div>
                <div class="form-group">
                   <label for="bus">Autobus v nedeľu</label>
-                  <input type="checkbox" required class="token" id="bus" name="bus" {{ 'checked' if participant.transport_out | bus else '' }} >
+                  <input type="checkbox" class="token" id="bus" name="bus" {{ 'checked' if participant.transport_out | bus else '' }} >
               </div>
                 <button type="submit" class="btn btn-primary">Registrovať</button>
             </form>

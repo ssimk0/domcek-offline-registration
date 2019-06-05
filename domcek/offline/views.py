@@ -15,7 +15,7 @@ def index():
 @blueprint.route("/participants", methods=['GET'])
 def participants():
     filter = request.args.get('q', None)
-    participants = service.get_participants(filter)
+    participants = service.get_participants(filter, True)
     paid = service.get_paid_amount()
     on_reg = service.get_on_reg_amount()
     return render_template('all-participants.html', participants=participants, filter=filter, on_reg=on_reg, paid=paid)
@@ -26,10 +26,10 @@ def detail(user_id):
     if request.method == 'POST':
         amount = request.form.get('amount', None)
         participant = service.get_participant_by_id(user_id)
-        participant['on_registration'] = int(amount)
+        participant['on_registration'] = int(amount) if amount is not None and amount != '' else 0
         participant['was_on_event'] = 1
         participant['subscribed'] = 1
-        participant['transport_out'] = '11:00' if request.form.get('bus', participant['transport_out']) == 'on' else ''
+        participant['transport_out'] = '11:00' if request.form.get('bus', participant.get('transport_out', None)) == 'on' else ''
         service.save()
         return redirect('/registration')
     else:
