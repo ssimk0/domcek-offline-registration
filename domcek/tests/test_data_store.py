@@ -20,11 +20,11 @@ def test_data_store():
             'city': 'Kosice'
         }
     ]
-    with open(path.join(getcwd(), 'test_data/sample_data.json'), 'w+') as outfile:
+    with open(path.join(path.join(path.dirname(__file__)), '../test_data/sample_data.json'), 'w+') as outfile:
         json.dump(data, outfile, indent=4)
 
     class testData(DataStore):
-        data_path = path.join(getcwd(), 'test_data/sample_data.json')
+        data_path = path.join(path.join(path.dirname(__file__)), '../test_data/sample_data.json')
         searchable_fields = ['name', 'email', 'city']
 
     return testData()
@@ -32,14 +32,14 @@ def test_data_store():
 
 @pytest.fixture
 def empty_data_store():
-    data_path = path.join(getcwd(), 'test_data/wrong_path_data.json')
+    data_path = path.join(path.join(path.dirname(__file__)), '../test_data/wrong_path_data.json')
 
     ## cleanup before test
     if path.exists(data_path):
         remove(data_path)
 
     class testData(DataStore):
-        data_path = path.join(getcwd(), 'test_data/wrong_path_data.json')
+        data_path = path.join(path.join(path.dirname(__file__)), '../test_data/wrong_path_data.json')
         searchable_fields = ['name', 'email', 'city']
 
     return testData()

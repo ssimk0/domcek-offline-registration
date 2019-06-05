@@ -25,11 +25,11 @@ def test_data_store():
             'city': 'Kosice'
         }
     ]
-    with open(path.join(getcwd(), 'test_data/participant.json'), 'w+') as outfile:
+    with open(path.join(path.dirname(__file__), '../test_data/participant.json'), 'w+') as outfile:
         json.dump(data, outfile, indent=4)
 
     class testData(Participants):
-        data_path = path.join(getcwd(), 'test_data/participant.json')
+        data_path = path.join(path.dirname(__file__), '../test_data/participant.json')
         searchable_fields = ['name', 'email', 'city']
 
     return testData()
