@@ -1,6 +1,6 @@
 import pytest
 import json
-from os import path, getcwd, remove
+from os import path, remove
 from domcek.shared.abstract_data_store import DataStore
 
 

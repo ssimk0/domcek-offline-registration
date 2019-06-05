@@ -6,7 +6,7 @@
         "email": "john@example.com",
         "subscribed": 1,
         "paid": 10,
-        "on_registration": 0
+        "on_registration": 1
     },
     {
         "id": 2,
