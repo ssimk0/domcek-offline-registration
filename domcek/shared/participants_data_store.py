@@ -16,8 +16,8 @@ class Participants(DataStore):
     def filter_participants(self, only_participants, search_string=None):
         filtered_list = []
         filter_strings = []
-
-        self.data.sort(key=sort_by_last_name)
+        if self.data:
+            self.data.sort(key=sort_by_last_name)
 
         if (search_string == '' or search_string is None or self.data is None) and only_participants is False:
             return self.data
