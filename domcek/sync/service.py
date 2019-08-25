@@ -20,3 +20,5 @@ class SyncService(Service):
         response = self.make_request('PUT', '/registration/events/participants/sync', data=data, params={'token': token})
         if response.status_code != 200:
             raise ConnectionError('Problem with connection to api server')
+        else:
+            self.archive()

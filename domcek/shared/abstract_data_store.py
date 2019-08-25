@@ -1,4 +1,5 @@
-from os import path
+from os import path, rename
+from datetime import datetime
 import json
 
 
@@ -55,6 +56,9 @@ class DataStore:
                 break
 
         self.store()
+
+    def archive(self):
+        rename(self.data_path, self.data_path + '_archive_' + datetime.now().timestamp())
 
     def __str__(self):
         return json.dumps(self.data)

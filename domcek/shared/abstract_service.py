@@ -15,3 +15,7 @@ class Service:
     def make_request(self, method, uri, data=None, params=None):
         data = data if data else {}
         return requests.request(method, self.api_root + uri, json=data, params=params)
+
+    def archive(self):
+        self.participant_store.archive()
+        self.wrong_payments_store.archive()
