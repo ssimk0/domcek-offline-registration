@@ -12,7 +12,10 @@ Registrovať učastnika
             <h5 class="card-title">Registrovať</h5>
             <div class="row">
                 <div class="col-6">
-                    <strong>Meno: </strong><span class="text-danger h4">{{ participant.first_name }}</span>
+                    <strong>Meno: </strong>{{ participant.first_name }}
+                </div>
+                <div class="col-6">
+                    <strong>Meno na menovke: </strong><span class="text-danger h4">{{ participant.nick if participant.nick else participant.first_name }}</span>
                 </div>
                 <div class="col-6">
                     <strong>Priezvisko: </strong>{{ participant.last_name }}
