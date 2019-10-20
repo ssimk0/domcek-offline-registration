@@ -58,7 +58,7 @@ class DataStore:
         self.store()
 
     def archive(self):
-        rename(self.data_path, self.data_path + '_archive_' + datetime.now().timestamp())
+        rename(self.data_path, self.data_path + '_archive_' + datetime.now().isoformat())
 
     def __str__(self):
         return json.dumps(self.data)
